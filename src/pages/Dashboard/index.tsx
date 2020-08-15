@@ -31,18 +31,24 @@ interface Product {
 const Dashboard: React.FC = () => {
   const { addToCart } = useCart();
 
+  /**
+   * "products" aqui são os produtos carregados da API
+   * "products" no hook e no Cart são os produtos adicionados ao carrinho
+   */
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
-      // TODO
+      const response = await api.get<Product[]>('products');
+
+      setProducts(response.data);
     }
 
     loadProducts();
   }, []);
 
   function handleAddToCart(item: Product): void {
-    // TODO
+    addToCart(item);
   }
 
   return (
